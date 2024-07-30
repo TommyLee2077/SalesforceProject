@@ -4,7 +4,7 @@
         class="slds-p-left_x-small"
       >
         <div class="slds-grid slds-gutters slds-wrap">
-          <div class="slds-col slds-size_1-of-3">
+          <div class="slds-col slds-size_1-of-4">
             <lightning-combobox
               class="slds-p-left_x-small"
               name="itemType"
@@ -12,8 +12,19 @@
               value={selectedType}
               placeholder="種別を選択してください"
               options={options}
-              onchange={handleChange} >
+              onchange={handleOptionsChange} >
             </lightning-combobox>
+          </div>
+          <div class="slds-col slds-size_1-of-4">
+            <lightning-input
+              class="slds-p-left_x-small"
+              type="text" 
+              label="仕入先名"
+              placeholder="検索文字を入力してください"
+              value={searchString}
+              onchange={handleSeachStringChange}
+            >
+            </lightning-input>
           </div>
         </div>
       </div>
