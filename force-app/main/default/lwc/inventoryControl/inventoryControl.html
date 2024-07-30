@@ -1,0 +1,21 @@
+<template>
+    <lightning-card>
+      <div
+        class="slds-p-left_x-small"
+      >
+        <div class="slds-grid slds-gutters slds-wrap">
+          <div class="slds-col slds-size_1-of-3">
+            <lightning-combobox
+              class="slds-p-left_x-small"
+              name="itemType"
+              label="品目種別"
+              value={selectedType}
+              placeholder="種別を選択してください"
+              options={options}
+              onchange={handleChange} >
+            </lightning-combobox>
+          </div>
+        </div>
+      </div>
+    </lightning-card>
+</template>
