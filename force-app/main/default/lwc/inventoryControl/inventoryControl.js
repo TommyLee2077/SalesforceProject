@@ -1,16 +1,21 @@
 import { LightningElement } from 'lwc';
-import { NavigationMixin } from 'lightning/navigation';
 import getItemTypeList from '@salesforce/apex/InventoryControlController.getItemTypeList';
 
-export default class InventoryControl extends NavigationMixin(LightningElement) {
+
+export default class InventoryControl extends LightningElement {
 
   //品目種別の値
   selectedType;
   //品目種別の選択肢
   options;
 
+  //品目名
+  searchName;
+
   //仕入先検索文字
   searchString;
+
+  searchDisabled = false;
 
   /*
   The connectedCallback() lifecycle hook fires when a component is inserted into the DOM. 
@@ -20,7 +25,6 @@ export default class InventoryControl extends NavigationMixin(LightningElement) 
     this.options = await this.getoptions();
     console.log(this.options);
   }
-
 
   async getoptions(){
     try{
@@ -34,6 +38,7 @@ export default class InventoryControl extends NavigationMixin(LightningElement) 
   handleOptionsChange(event){
     try{
       this.selectedType = event.target.value;
+
       console.log(this.selectedType);
     } catch(e){
       console.log(e);
@@ -47,5 +52,18 @@ export default class InventoryControl extends NavigationMixin(LightningElement) 
     } catch(e){
       console.log(e);
     }
+  }
+
+  handleSeachNameChange(event){
+    try{
+      this.searchName = event.target.value;
+      console.log(this.searchName);
+    } catch(e){
+      console.log(e);
+    }
+  }
+
+  search(){
+
   }
 }

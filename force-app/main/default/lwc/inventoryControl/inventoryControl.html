@@ -19,6 +19,17 @@
             <lightning-input
               class="slds-p-left_x-small"
               type="text" 
+              label="品目名"
+              placeholder="検索文字を入力してください"
+              value={searchName}
+              onchange={handleSeachNameChange}
+            >
+            </lightning-input>
+          </div>
+          <div class="slds-col slds-size_1-of-4">
+            <lightning-input
+              class="slds-p-left_x-small"
+              type="text" 
               label="仕入先名"
               placeholder="検索文字を入力してください"
               value={searchString}
@@ -26,6 +37,28 @@
             >
             </lightning-input>
           </div>
+        </div>
+
+        <div 
+          style="display: flex; justify-content: center"
+          class="slds-p-top_small"
+        >
+          <lightning-button
+            variant="brand"
+            label="検索"
+            title="検索"
+            onclick={search}
+            disabled={searchDisabled}
+            class="slds-m-left_x-small"
+          ></lightning-button>
+          <lightning-button
+            variant="success"
+            label="更新"
+            title="更新"
+            onclick={update}
+            disabled={updateDisabled}
+            class="slds-m-left_x-small"
+          ></lightning-button>
         </div>
       </div>
     </lightning-card>
