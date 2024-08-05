@@ -1,4 +1,6 @@
 import { LightningElement } from 'lwc';
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
+
 import getItemTypeList from '@salesforce/apex/InventoryControlController.getItemTypeList';
 
 
@@ -11,11 +13,17 @@ export default class InventoryControl extends LightningElement {
 
   //品目名
   searchName;
-
-  //仕入先検索文字
-  searchString;
+  
+  //チェックボックス初期値
+  checkedValue = ['isFalse'];
 
   searchDisabled = false;
+
+  get checkBoxOptions(){
+    return [
+      {label:'在庫あり',value:'isTrue'}
+    ]
+  }
 
   /*
   The connectedCallback() lifecycle hook fires when a component is inserted into the DOM. 
@@ -24,6 +32,7 @@ export default class InventoryControl extends LightningElement {
   async connectedCallback(){
     this.options = await this.getoptions();
     console.log(this.options);
+    console.log(this.checkedValue[0])
   }
 
   async getoptions(){
@@ -37,7 +46,7 @@ export default class InventoryControl extends LightningElement {
 
   handleOptionsChange(event){
     try{
-      this.selectedType = event.target.value;
+      this.selectedType = event.detail.value;
 
       console.log(this.selectedType);
     } catch(e){
@@ -45,20 +54,20 @@ export default class InventoryControl extends LightningElement {
     }
   }
 
-  handleSeachStringChange(event){
+  handleSeachNameChange(event){
     try{
-      this.searchString = event.target.value;
-      console.log(this.searchString);
+      this.searchName = event.detail.value;
+      console.log(this.searchName);
     } catch(e){
       console.log(e);
     }
   }
 
-  handleSeachNameChange(event){
+  handleCheckChange(event){
     try{
-      this.searchName = event.target.value;
-      console.log(this.searchName);
-    } catch(e){
+      this.checkedValue = event.detail.value;
+      console.log(this.checkedValue[0]);
+    }catch(e){
       console.log(e);
     }
   }
@@ -66,4 +75,6 @@ export default class InventoryControl extends LightningElement {
   search(){
 
   }
+
+
 }
