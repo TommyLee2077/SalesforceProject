@@ -10,7 +10,6 @@
               name="itemType"
               label="品目種別"
               value={selectedType}
-              placeholder="種別を選択してください"
               options={options}
               onchange={handleOptionsChange} >
             </lightning-combobox>
@@ -29,6 +28,7 @@
           <div class="slds-col slds-size_1-of-4">
             <lightning-checkbox-group
              name="checkbox"
+             label="　"
              options={checkBoxOptions}
              value={checkedValue}
              onchange={handleCheckChange}
@@ -71,8 +71,20 @@
     </lightning-card>
     
     <div class="slds-m-top_x-small">
-      <lightning-card>
-        dataTable
+      <lightning-card
+        if:true={displayDatatable}
+      
+      >
+        <lightning-datatable
+          key-field="Id"
+          columns={columns}
+          data={ICData}
+          draft-values={draftValues}
+          hide-checkbox-column
+          show-row-number-column
+        >
+
+        </lightning-datatable>
       </lightning-card>
     </div>
 </template>

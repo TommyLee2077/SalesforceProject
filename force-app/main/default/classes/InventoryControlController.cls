@@ -19,9 +19,23 @@ public with sharing class InventoryControlController {
     }
 
     @AuraEnabled
-    public static string methodName(){
+    public static List<InventoryControl__c> getICList(String ItemType,String ItemName,Boolean isExist){
         try {
-            
+            String soql = 'SELECT';
+            soql += ' Id,ItemType__c,ItemName__c,Supplier__c,Price__c,StockQuantity__c,PrimeCost__c,CostTotalAmount__c';
+            soql += ' FROM InventoryControl__c';
+            if(ItemType != 'allType'){
+                soql += ' WHERE ItemType__c = :ItemType';
+            }else{
+                soql += ' WHERE ItemType__c != null';
+            }
+            if(!String.isBlank(ItemName)){
+                 soql += ' AND ItemName__c LIKE \'%' + ItemName + '%\'';
+            }
+            if(isExist){
+                soql += ' AND StockQuantity__c > 0';
+            }
+            return Database.query(soql);
         } catch (Exception e) {
             throw new AuraHandledException(e.getMessage());
         }
