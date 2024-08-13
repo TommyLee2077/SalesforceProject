@@ -3,6 +3,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 import getItemTypeList from '@salesforce/apex/InventoryControlController.getItemTypeList';
 import getICList from '@salesforce/apex/InventoryControlController.getICList';
+import updateICList from '@salesforce/apex/InventoryControlController.updateICList';
 
 const columns = [
   {label:'品目種別',fieldName:'ItemType__c'},
@@ -33,8 +34,13 @@ export default class InventoryControl extends LightningElement {
   //dataTable表示制御
   displayDatatable = false;
 
+  //データ
   columns = columns;
   ICData = [];
+  draftValues = [];
+
+  //loading 画面
+  loading = false;
 
   get checkBoxOptions(){
     return [
@@ -91,13 +97,37 @@ export default class InventoryControl extends LightningElement {
     }
   }
 
+  async handleSave(event) {
+    this.loading = true;
+    this.saveDraftValues = event.detail.draftValues;
+    console.log(this.saveDraftValues);
+    await updateICList({records:this.saveDraftValues});
+    this.loading =false;
+    this.showToast('Title','データを保存しました。','success');
+    this.draftValues = null;
+  }
+
   async search(){
-    
+    this.loading = true;
     console.log(this.selectedType,this.searchName,this.isExist)
     this.ICData = await getICList({ItemType:this.selectedType,ItemName:this.searchName,isExist:this.isExist});
+    if(this.ICData.length == 0){
+      this.loading = false;
+      this.showToast('INFO','該当データがありません','warning');
+      return;
+    }
+    this.loading = false;
     console.log(this.ICData);
     this.displayDatatable = true;
   }
-
+  
+  async showToast(title,message,variant){
+    const event = new ShowToastEvent({
+      title,
+      message,
+      variant
+    });
+    this.dispatchEvent(event);
+  }
 
 }

@@ -40,4 +40,13 @@ public with sharing class InventoryControlController {
             throw new AuraHandledException(e.getMessage());
         }
     }
+
+    @AuraEnabled
+    public static void updateICList(List<InventoryControl__c> records){
+        try {
+            update records;
+        } catch (Exception e) {
+            throw new AuraHandledException(e.getMessage());
+        }
+    }
 }
