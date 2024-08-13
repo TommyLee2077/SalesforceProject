@@ -130,4 +130,28 @@ export default class InventoryControl extends LightningElement {
     this.dispatchEvent(event);
   }
 
+  downloadCSVFile() {
+    console.log(this.ICData);
+    let csvData = this.ICData;
+    let csvFile = this.convertArrayToCsv(csvData);
+    this.createLinkForDownload(csvFile);
+  }
+
+  convertArrayToCsv(csvData){
+    let csvHeader = Object.keys(csvData[0]).toString();
+    let csvBody = csvData.map((currItem) =>
+      Object.values(currItem).toString()
+    )
+    let csvFile = csvHeader + "\n" + csvBody.join("\n");
+    console.log(csvFile);
+    return csvFile;
+  }
+
+  createLinkForDownload(csvFile){
+    const downLink = document.createElement("a");
+    downLink.href = "data:text/csv;charset=shift-jis," + encodeURI(csvFile);
+    downLink.target = "_blank";
+    downLink.download = "csv";
+    downLink.click();
+  }
 }
