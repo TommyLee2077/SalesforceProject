@@ -1,5 +1,15 @@
 <template>
     <lightning-card>
+      <lightning-accordion 
+      allow-multiple-sections-open
+      active-section-name={activeSections}
+      >
+        <lightning-accordion-section name="A" label="アプリ使用説明">
+            <p>・品目種別、品目名、在庫ありを使い、在庫管理のレコードを検索可能です</p>
+            <p>・品目名、仕入れ先、価格、在庫数、原価を修正し、変更保存することができる</p>
+            <p>・検索結果をCSVダウンロードできます</p>
+          </lightning-accordion-section>
+      </lightning-accordion>
       <div
         class="slds-p-left_x-small"
       >

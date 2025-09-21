@@ -1,8 +1,5 @@
 public with sharing class InventoryControlController {
-    public InventoryControlController() {
-
-    }
-
+    
     @AuraEnabled(cacheable=true)
     public static List<SelectOption> getItemTypeList(){
         List<SelectOption> options = new List<SelectOption>();

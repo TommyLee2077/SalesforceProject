@@ -7,16 +7,18 @@ import updateICList from '@salesforce/apex/InventoryControlController.updateICLi
 
 const columns = [
   {label:'品目種別',fieldName:'ItemType__c'},
-  {label:'品目名',fieldName:'ItemName__c'},
-  {label:'仕入先名',fieldName:'Supplier__c'},
-  {label:'価格',fieldName:'Price__c'},
+  {label:'品目名',fieldName:'ItemName__c',editable:true},
+  {label:'仕入先名',fieldName:'Supplier__c',editable:true},
+  {label:'価格',fieldName:'Price__c',editable:true},
   {label:'在庫数',fieldName:'StockQuantity__c',type:'number',editable:true},
-  {label:'原価',fieldName:'PrimeCost__c'},
+  {label:'原価',fieldName:'PrimeCost__c',editable:true},
   {label:'原価合計額',fieldName:'CostTotalAmount__c'}
 ];
 
 export default class InventoryControl extends LightningElement {
 
+  //lightning-accordion 
+  activeSections = [];
   //品目種別の値
   selectedType = 'allType';
   //品目種別の選択肢
@@ -154,4 +156,6 @@ export default class InventoryControl extends LightningElement {
     downLink.download = "csv";
     downLink.click();
   }
+
+  
 }
